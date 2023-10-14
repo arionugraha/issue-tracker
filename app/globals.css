@@ -5,3 +5,7 @@
 h1, p {
     @apply text-zinc-900
 }
+
+body {
+    font-family: var(--font-inter), sans-serif !important;
+}
