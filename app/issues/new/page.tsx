@@ -10,6 +10,7 @@ import { AiOutlineWarning } from "react-icons/ai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import z from "zod";
+import FormError from "@/app/components/FormError";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -55,17 +56,9 @@ const NewIssuePage = () => {
             <TextField.Root>
                <TextField.Input placeholder="Title" {...register("title")} />
             </TextField.Root>
-            {errors.title && (
-               <Text color="red" as="p">
-                  {errors.title.message}
-               </Text>
-            )}
+            <FormError>{errors.title?.message}</FormError>
             <Controller name="description" control={control} render={({ field }) => <SimpleMDE placeholder="Description" {...field} />} />
-            {errors.description && (
-               <Text color="red" as="p">
-                  {errors.description.message}
-               </Text>
-            )}
+            <FormError>{errors.description?.message}</FormError>
             <Button>Submit</Button>
          </form>
       </div>
