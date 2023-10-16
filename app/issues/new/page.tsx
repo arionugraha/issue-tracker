@@ -3,7 +3,7 @@
 import { Button, Callout, Text, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineWarning } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import z from "zod";
 import FormError from "@/app/components/FormError";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -23,8 +24,10 @@ const NewIssuePage = () => {
       formState: { errors },
    } = useForm<IssueForm>({ resolver: zodResolver(createIssueSchema) });
    const [error, setError] = useState("");
+   const [isSubmitting, setIsSubmitting] = useState(false);
 
    async function postIssue(data: IssueForm) {
+      setIsSubmitting(true);
       const res = await fetch("/api/issues", {
          method: "POST",
          body: JSON.stringify(data),
@@ -33,6 +36,7 @@ const NewIssuePage = () => {
          },
       });
       if (!res.ok) {
+         setIsSubmitting(false);
          setError("An unexpected error occurred.");
          console.log(res);
       } else {
@@ -59,7 +63,7 @@ const NewIssuePage = () => {
             <FormError>{errors.title?.message}</FormError>
             <Controller name="description" control={control} render={({ field }) => <SimpleMDE placeholder="Description" {...field} />} />
             <FormError>{errors.description?.message}</FormError>
-            <Button>Submit</Button>
+            <Button disabled={isSubmitting}>Submit {isSubmitting && <Spinner />}</Button>
          </form>
       </div>
    );
