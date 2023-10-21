@@ -4,7 +4,7 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import NavBar from "./components/NavBar";
+import { NavBar } from "@/app/components";
 
 const inter = Inter({
    subsets: ["latin"],

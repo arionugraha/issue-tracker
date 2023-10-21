@@ -1,7 +1,6 @@
 "use client";
 
-import FormError from "@/app/components/FormError";
-import Spinner from "@/app/components/Spinner";
+import { FormError, Spinner } from "@/app/components";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Callout, TextField } from "@radix-ui/themes";
