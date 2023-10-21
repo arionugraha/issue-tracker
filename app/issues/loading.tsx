@@ -10,7 +10,7 @@ const LoadingIssuesPage = () => {
 
    return (
       <>
-         <IssueActionButton />
+         <IssueActionButton action="New Issue" />
          <Table.Root variant="surface">
             <Table.Header>
                <Table.Row>
