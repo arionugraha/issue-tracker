@@ -6,14 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
 import { Box, Button, Callout, TextField } from "@radix-ui/themes";
 import "easymde/dist/easymde.min.css";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AiOutlineWarning } from "react-icons/ai";
+import SimpleMDE from "react-simplemde-editor";
 import z from "zod";
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 
 type IssueFormData = z.infer<typeof issueSchema>;
 
@@ -32,15 +30,20 @@ const IssueForm = ({ issue }: Props) => {
    const [error, setError] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
 
-   async function postIssue(data: IssueFormData) {
+   async function submitIssue(data: IssueFormData) {
       setIsSubmitting(true);
-      const res = await fetch("/api/issues", {
-         method: "POST",
+
+      const fetchOptions = {
+         method: issue ? "PATCH" : "POST",
          body: JSON.stringify(data),
          headers: {
             "Content-Type": "application/json",
          },
-      });
+      };
+
+      const url = issue ? `/api/issues/${issue.id}` : "/api/issues";
+      const res = await fetch(url, fetchOptions);
+
       if (!res.ok) {
          setIsSubmitting(false);
          setError("An unexpected error occurred.");
@@ -63,7 +66,7 @@ const IssueForm = ({ issue }: Props) => {
                </Callout.Text>
             </Callout.Root>
          )}
-         <form className="space-y-3" onSubmit={handleSubmit(postIssue)}>
+         <form className="space-y-3" onSubmit={handleSubmit(submitIssue)}>
             <TextField.Root>
                <TextField.Input defaultValue={issue?.title} placeholder="Title" {...register("title")} />
             </TextField.Root>
@@ -75,7 +78,9 @@ const IssueForm = ({ issue }: Props) => {
                render={({ field }) => <SimpleMDE placeholder="Description" {...field} />}
             />
             <FormError>{errors.description?.message}</FormError>
-            <Button disabled={isSubmitting}>Submit {isSubmitting && <Spinner />}</Button>
+            <Button disabled={isSubmitting}>
+               {issue ? "Update" : "Submit"} {isSubmitting && <Spinner />}
+            </Button>
          </form>
       </Box>
    );
