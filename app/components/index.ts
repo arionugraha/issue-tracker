@@ -7,3 +7,4 @@ export { default as EditIssueButton } from "./issues/EditIssueButton";
 export { default as IssueActionButton } from "./issues/IssueActionButton";
 export { default as IssueDetails } from "./issues/IssueDetails";
 export { default as IssueStatusBadge } from "./issues/IssueStatusBadge";
+export { default as IssueForm } from "./issues/IssueForm";
