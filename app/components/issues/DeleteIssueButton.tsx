@@ -1,6 +1,7 @@
+"use client";
+
 import { TrashIcon } from "@radix-ui/react-icons";
-import { Button } from "@radix-ui/themes";
-import Link from "next/link";
+import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 
 interface Props {
    issueId: number;
@@ -8,10 +9,28 @@ interface Props {
 
 const DeleteIssueButton = ({ issueId }: Props) => {
    return (
-      <Button color="red">
-         <TrashIcon />
-         <Link href={`/issues/${issueId}/delete`}>Delete</Link>
-      </Button>
+      <AlertDialog.Root>
+         <AlertDialog.Trigger>
+            <Button color="red">
+               <TrashIcon />
+               Delete
+            </Button>
+         </AlertDialog.Trigger>
+         <AlertDialog.Content>
+            <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
+            <AlertDialog.Description>Are you sure you want to delete this issue?</AlertDialog.Description>
+            <Flex mt={"4"} gap={"3"}>
+               <AlertDialog.Cancel>
+                  <Button color="gray" variant="soft">
+                     Cancel
+                  </Button>
+               </AlertDialog.Cancel>
+               <AlertDialog.Action>
+                  <Button color="red">Delete</Button>
+               </AlertDialog.Action>
+            </Flex>
+         </AlertDialog.Content>
+      </AlertDialog.Root>
    );
 };
 
