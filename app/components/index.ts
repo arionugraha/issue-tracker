@@ -9,3 +9,4 @@ export { default as IssueDetails } from "./issues/IssueDetails";
 export { default as IssueStatusBadge } from "./issues/IssueStatusBadge";
 export { default as IssueForm } from "./issues/IssueForm";
 export { default as IssueFormSkeleton } from "./issues/IssueFormSkeleton";
+export { default as DeleteIssueButton } from "./issues/DeleteIssueButton";
