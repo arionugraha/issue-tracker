@@ -9,9 +9,11 @@ interface Props {
 const IssueActionButton = ({ action }: Props) => {
    return (
       <div className="mb-5">
-         <Button>
-            <Link href={"/issues/new"}>{action}</Link>
-         </Button>
+         <Link href={"/issues/new"}>
+            <Button>
+               {action}
+            </Button>
+         </Link>
       </div>
    );
 };

@@ -1,4 +1,4 @@
-import { DeleteIssueButton, EditIssueButton, IssueDetails } from "@/app/components";
+import { DeleteIssueButton, EditIssueButton, IssueDetails } from "@/app/issues/_components";
 import prisma from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
@@ -15,12 +15,12 @@ const IssueDetailPage = async ({ params }: Props) => {
    if (!issue) notFound();
 
    return (
-      <Grid columns={{ initial: "1", sm: "5" }} gap={"5"}>
-         <Box className="lg:col-span-4">
+      <Grid columns={{ initial: "1", sm: "8" }} gap={"4"}>
+         <Box className={"md:col-span-8"}>
             <IssueDetails issue={issue} />
          </Box>
          <Box>
-            <Flex direction={"column"} gap={"4"}>
+            <Flex direction={"column"} gap={"2"}>
                <EditIssueButton issueId={issue.id} />
                <DeleteIssueButton issueId={issue.id} />
             </Flex>
