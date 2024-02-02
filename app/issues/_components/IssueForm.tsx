@@ -44,7 +44,7 @@ const IssueForm = ({ issue }: Props) => {
          setError("An unexpected error occurred.");
          console.log(res);
       } else {
-         router.push("/issues");
+         router.push("/issues/list");
          router.refresh();
       }
    }

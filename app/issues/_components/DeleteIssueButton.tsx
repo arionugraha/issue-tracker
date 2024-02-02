@@ -23,7 +23,7 @@ const DeleteIssueButton = ({ issueId }: Props) => {
          setDeleting(false);
          setError(true);
       } else {
-         router.push("/issues");
+         router.push("/issues/list");
          router.refresh();
       }
    };
