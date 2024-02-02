@@ -1,5 +1,6 @@
 "use client";
 
+import { Spinner } from "@/app/components";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
@@ -12,11 +13,14 @@ interface Props {
 const DeleteIssueButton = ({ issueId }: Props) => {
    const router = useRouter();
    const [error, setError] = useState(false);
+   const [isDeleting, setDeleting] = useState(false);
 
    const deleteIssue = async () => {
+      setDeleting(true);
       const res = await fetch(`/api/issues/${issueId}`, { method: "DELETE" });
 
       if (!res.ok) {
+         setDeleting(false);
          setError(true);
       } else {
          router.push("/issues");
@@ -28,9 +32,10 @@ const DeleteIssueButton = ({ issueId }: Props) => {
       <>
          <AlertDialog.Root>
             <AlertDialog.Trigger>
-               <Button color="red">
+               <Button color="red" disabled={isDeleting}>
                   <TrashIcon />
                   Delete
+                  {isDeleting && <Spinner />}
                </Button>
             </AlertDialog.Trigger>
             <AlertDialog.Content>
