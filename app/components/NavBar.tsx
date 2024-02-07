@@ -1,23 +1,16 @@
 "use client";
 
-import { Avatar, Box, Container, DropdownMenu, Flex, Text } from "@radix-ui/themes";
+import { Avatar, DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import classNames from "classnames";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 import { BsFillBugFill } from "react-icons/bs";
+import { Spinner } from ".";
 
 const NavBar = () => {
-   const currentPath = usePathname();
-
-   const links = [
-      { label: "Dashboard", href: "/" },
-      { label: "Issues", href: "/issues/list" },
-   ];
-
    return (
-      <nav className="border-b px-5 py-2 mb-3">
+      <nav className="border-b px-5 py-3 mb-3">
             <Flex justify={"between"} align={"center"}>
                <Flex align={"center"} gap={"5"}>
                   <Link href={"/"} className="hover:scale-105 text-zinc-900">
@@ -61,7 +54,9 @@ const NavLinks = () => {
 const AuthStatus = () => {
    const { status, data: session } = useSession();
 
-   if (status === "loading") return null;
+   if (status === "loading") {
+      return <Spinner />;
+   }
 
    if (status === "unauthenticated") {
       return <Link href={"/api/auth/signin"} className="nav-link">Log In</Link>;
