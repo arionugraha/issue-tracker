@@ -1,4 +1,7 @@
 {
-    "breadcrumbs.symbolSortOrder": "position",
-    "prettier.tabWidth": 3
+   "breadcrumbs.symbolSortOrder": "position",
+   "prettier.tabWidth": 3,
+   "[prisma]": {
+      "editor.defaultFormatter": "Prisma.prisma"
+   }
 }
