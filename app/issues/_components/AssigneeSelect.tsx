@@ -11,50 +11,37 @@ interface Props {
 }
 
 const AssigneeSelect = ({ issue }: Props) => {
-   const {
-      data: users,
-      error,
-      isLoading,
-   } = useQuery<User[]>({
-      queryKey: ["users"],
-      queryFn: async () => {
-         const response = await fetch("/api/users");
-         return response.json();
-      },
-      staleTime: 60 * 1000,
-      retry: 3,
-   });
+   const { data: users, error, isLoading } = useUsers();
 
    if (isLoading) return <Skeleton />;
 
    if (error) return null;
 
+   const assignIssue = async (userId: string) => {
+      let assigneeId: string | null;
+
+      if (userId === "empty") {
+         assigneeId = null;
+      } else {
+         assigneeId = userId;
+      }
+
+      try {
+         await fetch(`/api/issues/${issue.id}/`, {
+            method: "PATCH",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ assigneeId }),
+         });
+      } catch {
+         toast.error("Failed to save changes.");
+      }
+   };
+
    return (
       <>
-         <Select.Root
-            defaultValue={issue.assigneeId || "empty"}
-            onValueChange={async (userId) => {
-               let assigneeId: string | null;
-
-               if (userId === "empty") {
-                  assigneeId = null;
-               } else {
-                  assigneeId = userId;
-               }
-
-               try {
-                  await fetch(`/api/issues/${issue.id}/`, {
-                     method: "PATCH",
-                     headers: {
-                        "Content-Type": "application/json",
-                     },
-                     body: JSON.stringify({ assigneeId }),
-                  });
-               } catch {
-                  toast.error("Failed to save changes.");
-               }
-            }}
-         >
+         <Select.Root defaultValue={issue.assigneeId || "empty"} onValueChange={assignIssue}>
             <Select.Trigger placeholder="Assign to ..." />
             <Select.Content>
                <Select.Group>
@@ -72,5 +59,16 @@ const AssigneeSelect = ({ issue }: Props) => {
       </>
    );
 };
+
+const useUsers = () =>
+   useQuery<User[]>({
+      queryKey: ["users"],
+      queryFn: async () => {
+         const response = await fetch("/api/users");
+         return response.json();
+      },
+      staleTime: 60 * 1000,
+      retry: 3,
+   });
 
 export default AssigneeSelect;
