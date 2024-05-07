@@ -6,10 +6,11 @@ interface Props {
    status: Status;
 }
 
-const statusMap: Record<Status, { label: string; color: "red" | "yellow" | "green" }> = {
+const statusMap: Record<Status, { label: string; color: "red" | "yellow" | "green" | "gray" }> = {
    OPEN: { label: "OPEN", color: "red" },
    IN_PROGRESS: { label: "IN PROGRESS", color: "yellow" },
    DONE: { label: "CLOSED", color: "green" },
+   CANCELLED: { label: "CANCELLED", color: "gray" },
 };
 
 const IssueStatusBadge = ({ status }: Props) => {
