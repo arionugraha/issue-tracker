@@ -5,9 +5,10 @@ import NextLink from "next/link";
 import { IssueActions, IssueStatusBadge } from "@/app/issues/_components";
 import { Issue, Status } from "@prisma/client";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
+import Pagination from "@/app/components/Pagination";
 
 interface Props {
-   searchParams: { status: Status; orderBy: keyof Issue };
+   searchParams: { status: Status; orderBy: keyof Issue; page: string };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
@@ -66,6 +67,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
                ))}
             </Table.Body>
          </Table.Root>
+         <Pagination itemCount={issues.length} pageSize={10} currentPage={parseInt(searchParams.page) || 1} />
       </>
    );
 };
