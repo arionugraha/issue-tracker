@@ -1,5 +1,5 @@
 import authOptions from "@/app/api/auth/authOptions";
-import { AssigneeSelect, DeleteIssueButton, EditIssueButton, IssueDetails } from "@/app/issues/_components";
+import { AssigneeSelect, DeleteIssueButton, EditIssueButton, IssueDetails } from "@/app/issues/[id]/_components";
 import prisma from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";

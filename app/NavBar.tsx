@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BsFillBugFill } from "react-icons/bs";
-import { Spinner } from ".";
+import { Spinner } from "./components";
 
 const NavBar = () => {
    return (

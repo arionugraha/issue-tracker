@@ -1,7 +1,7 @@
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import Markdown from "react-markdown";
-import { IssueStatusBadge } from "@/app/issues/_components";
 import { Issue } from "@prisma/client";
+import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 
 interface Props {
    issue: Issue;
