@@ -25,9 +25,8 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
    };
 
    return (
-      <Flex align={"center"} gap={"2"}>
-         <Text size={"2"}>
-            Page {currentPage} of {pageCount}
+      <Flex align={"center"} gap={"2"} direction={"column"}>
+         <Flex>
             <Button color="gray" variant="soft" disabled={currentPage === 1} onClick={() => changePage(1)}>
                <DoubleArrowLeftIcon />
             </Button>
@@ -40,7 +39,12 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
             <Button color="gray" variant="soft" disabled={currentPage === pageCount} onClick={() => changePage(pageCount)}>
                <DoubleArrowRightIcon />
             </Button>
-         </Text>
+         </Flex>
+         <Flex>
+            <Text size={"2"} weight={"bold"}>
+               Page {currentPage} of {pageCount}
+            </Text>
+         </Flex>
       </Flex>
    );
 };
