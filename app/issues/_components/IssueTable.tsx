@@ -1,9 +1,9 @@
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import { Table } from "@radix-ui/themes";
-import Link from "next/link";
-import IssueStatusBadge from "./IssueStatusBadge";
+import IssueStatusBadge from "../../components/IssueStatusBadge";
 import NextLink from "next/link";
 import { Issue, Status } from "@prisma/client";
+import { Link } from "@/app/components";
 
 const columns: { label: string; value: keyof Issue; className?: string }[] = [
    { label: "Issue", value: "title" },

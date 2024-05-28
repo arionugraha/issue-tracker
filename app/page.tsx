@@ -1,7 +1,5 @@
+import LatestIssues from "./LatestIssues";
+
 export default function Home() {
-   return (
-      <>
-         <div></div>
-      </>
-   );
+   return <LatestIssues />;
 }
