@@ -1,9 +1,8 @@
 import prisma from "@/prisma/client";
-import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes";
+import { Avatar, Card, Flex, Heading, Table, Text } from "@radix-ui/themes";
 import React from "react";
 import Link from "next/link";
 import IssueStatusBadge from "./components/IssueStatusBadge";
-import { TriangleUpIcon } from "@radix-ui/react-icons";
 
 const LatestIssues = async () => {
    const issues = await prisma.issue.findMany({
@@ -26,6 +25,9 @@ const LatestIssues = async () => {
                            <Flex direction={"column"} align={"start"} gap={"2"}>
                               <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
                               <IssueStatusBadge status={issue.status} />
+                              <Text className="text-gray-400" mt="3">
+                                 {issue.createdAt.toDateString()}
+                              </Text>
                            </Flex>
                            {issue.assigneeId && <Avatar src={issue.assignee?.image!} fallback="?" radius="full" size="2" />}
                         </Flex>
